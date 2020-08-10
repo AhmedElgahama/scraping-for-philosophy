@@ -9,16 +9,15 @@ import time
 # to handle sleeping time
 
 
-def get_urls(url):
-
 #this function gets a url 
 #open that url 
 #and get all urls in that page 
 #and correct the incomplete urls
 
+def get_urls(url):
 
-    nested_urls=list()             
     #list to save all the urls
+    nested_urls=list()             
 
     http = httplib2.Http()
     status, response = http.request(url)
@@ -31,11 +30,11 @@ def get_urls(url):
 
         if link.has_attr('href'):
 
-            if "wiki" in link["href"]:
             #as the page can has some urls tat for other sites than wikipedia we wont save them
+            if "wiki" in link["href"]:
 
-                if "https" not in link["href"]:
                 #we search for incomplete urls to correct them 
+                if "https" not in link["href"]:
                     link["href"]="https://en.wikipedia.org"+link["href"]
                     nested_urls.append(link["href"])
     return nested_urls
